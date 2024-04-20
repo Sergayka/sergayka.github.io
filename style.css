@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Playfair+Display&family=Rubik+Mono+One&display=swap');
+* {
+    font-family: Montserrat;
+}
+
+html {
+    margin: 30px auto;
+}
+
+body {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+header {
+    font-size: 26px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.wrapper {
+    width: fit-content;
+    margin: 0px auto;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table td {
+    width: 75px;
+    height: 75px;
+    border: 1px black solid;
+    text-align: center;
+}
+
+.btns {
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px auto;
+}
+
+button {
+    width: 90px;
+    height: 30px;
+    font-size: 15px;
+    background-color: #F1F2F2;
+    border: none;
+}
