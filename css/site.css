@@ -269,45 +269,47 @@ a.icon-link:hover {
 
 .path-run { position: relative; }
 
-.track {
-  position: relative;
-  height: 16px;
-  margin: 2px 0 14px;
-}
-
-.track::before,
-.fill {
+.net {
   position: absolute;
   left: 0;
-  top: 7px;
-  height: 2px;
-  border-radius: 2px;
+  top: 0;
+  overflow: visible;
+  pointer-events: none;
 }
 
-.track::before {
-  content: "";
-  right: 0;
-  background: var(--line-strong);
+.net .idle,
+.net .live {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-.fill {
-  width: var(--x, 0px);
-  background: var(--ink);
+.net .idle { stroke: var(--line-strong); stroke-width: 1.5; }
+.net .live { stroke: var(--ink); stroke-width: 2; }
+
+.net .joint {
+  fill: var(--shadow);
+  stroke: var(--ink);
+  stroke-width: 1.5;
 }
+
+.net .joint:nth-child(2) { fill: #fff6e6; }
 
 .packet {
   position: absolute;
-  top: 2px;
-  left: var(--x, 0px);
-  width: 12px;
-  height: 12px;
-  margin-left: -6px;
+  z-index: 2;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border: 2px solid var(--ink);
   border-radius: 50%;
-  background: var(--ink);
-  box-shadow: 0 0 0 4px var(--accent-soft);
+  background: var(--accent-soft);
+  pointer-events: none;
 }
 
 .hops {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 8px;
@@ -315,28 +317,43 @@ a.icon-link:hover {
 
 .hops button {
   appearance: none;
-  text-align: left;
-  background: var(--bg);
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: 156px;
+  padding: 126px 4px 4px;
+  background: transparent;
   color: var(--ink);
-  border: 1px solid var(--line-strong);
-  border-radius: 12px;
-  padding: 12px 12px 11px;
+  border: 0;
+  border-radius: 0;
   font-family: var(--sans);
   font-size: 14px;
   font-weight: 500;
+  text-align: center;
   cursor: pointer;
 }
 
-.hops button.is-done {
-  border-color: var(--ink);
+.hops button::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: #fff6e6;
+  top: var(--lift, 24px);
 }
 
-.hops button.is-on,
-.hops button:hover,
-.hops button[aria-pressed="true"] {
-  background: var(--accent-soft);
-  border-color: var(--accent);
-  color: var(--accent);
+.hops button.is-done::before,
+.hops button.is-on::before { background: var(--ink); }
+
+.hops button.is-on::before,
+.hops button:hover::before,
+.hops button[aria-pressed="true"]::before {
+  box-shadow: 0 0 0 5px var(--accent-soft);
 }
 
 .path-note {
@@ -685,16 +702,13 @@ html[lang="ru"] .fold[open] summary::after { content: "Скрыть"; }
 
   .intro .sentence { animation-delay: 0.08s; }
 
-  .fill,
   .packet {
-    transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1), left 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: left 0.45s cubic-bezier(0.22, 1, 0.36, 1), top 0.45s cubic-bezier(0.22, 1, 0.36, 1);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .fill,
-  .packet { transition: none; }
 }
 
 @keyframes rise {
@@ -710,7 +724,6 @@ html[lang="ru"] .fold[open] summary::after { content: "Скрыть"; }
 
 @media (max-width: 720px) {
   .path-run { overflow-x: auto; }
-  .track,
   .hops { min-width: 640px; }
 }
 
